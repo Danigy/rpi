@@ -1,7 +1,12 @@
- 
+import RPi.GPIO as GPIO
+import time
+
+# =======================
+# PIN LAYOUT OF THE CHIP
+# ======================= 
 # The wiring for the LCD is as follows:
 # 1 : GND
-# 2 : 5V
+# 2 : 5V ***************************** 3.3 volt wont work
 # 3 : Contrast (0-5V)*
 # 4 : RS (Register Select)
 # 5 : R/W (Read Write)       - GROUND THIS PIN
@@ -16,12 +21,10 @@
 # 14: Data Bit 7
 # 15: LCD Backlight +5V**
 # 16: LCD Backlight GND
- 
-#import
-import RPi.GPIO as GPIO
-import time
+
  
 # Define GPIO to LCD mapping
+# As I am using BOARD mode so I am specifying Pin numbers rather than GPIO numbers
 LCD_RS = 8
 LCD_E  = 10
 LCD_D4 = 12
@@ -44,17 +47,17 @@ LCD_LINE_4 = 0xD4 # LCD RAM address for the 4th line
 E_PULSE = 0.0005
 E_DELAY = 0.0005
  
+# Main program block
 def main():
-  # Main program block
- 
-  GPIO.setmode(GPIO.BOARD)       # Use BCM GPIO numbers
-  GPIO.setup(LCD_E, GPIO.OUT)  # E
-  GPIO.setup(LCD_RS, GPIO.OUT) # RS
-  GPIO.setup(LCD_D4, GPIO.OUT) # DB4
-  GPIO.setup(LCD_D5, GPIO.OUT) # DB5
-  GPIO.setup(LCD_D6, GPIO.OUT) # DB6
-  GPIO.setup(LCD_D7, GPIO.OUT) # DB7
-  GPIO.setup(LED_ON, GPIO.OUT) # Backlight enable
+  
+	GPIO.setmode(GPIO.BOARD)       # Use BCM GPIO numbers
+	GPIO.setup(LCD_E, GPIO.OUT)  # E
+	GPIO.setup(LCD_RS, GPIO.OUT) # RS
+	GPIO.setup(LCD_D4, GPIO.OUT) # DB4
+  	GPIO.setup(LCD_D5, GPIO.OUT) # DB5
+  	GPIO.setup(LCD_D6, GPIO.OUT) # DB6
+  	GPIO.setup(LCD_D7, GPIO.OUT) # DB7
+  	#GPIO.setup(LED_ON, GPIO.OUT) # Backlight enable
  
   # Initialise display
   lcd_init()
